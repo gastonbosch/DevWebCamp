@@ -1,0 +1,87 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.header{
+    min-height: 60rem;
+    /*backgroun-image permite colocar mas de una imagen, por eso tiene mas de una funcion url().
+    image-set recibe como parametro N imagenes en diferentes formatos y esta automaticamente elige
+    la mas optima para el navegador. El 1x en la dencidad de pixeles, siendo este ultimo el mas denso,
+    tambien podria colocarse dencidades mas bajas como 2x, 3x , etc*/
+    background-image: url('../img/grafico.svg'), url('../img/grafico.svg'), linear-gradient(to right, rgba(v.$negro,1), rgba(v.$negro, .5)),image-set(url('../img/header.avif') 1x,url('../img/header.webp') 1x,url('../img/header.jpg') 1x);
+    background-repeat: no-repeat;
+    /*Las 2 siguinetes propiedades hacen referencia a cada uno de las 4 propiedades del background-image.
+    El orden de los valores coincide con el orden de las propiedades en el background-image.
+    Los dos primeros graficos.svg van a tener un tamaño de 400px, mientras que el degradado y la imagen de
+    fondo van a ser cover. Lo mismo sucede con el background-position 
+    De esta manera haces referencia a cada una de las imagenes.*/
+    background-size: 400px, 400px, cover, cover;
+    background-position: top left, bottom right, center center, center center;
+
+    &__contenedor{
+        @include m.contenedor;
+    }
+
+    &__navegacion{
+        padding: 5rem 0;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        @include m.tablet{
+            justify-content: right;
+        }
+    }
+
+    &__enlace{
+        @include m.enlace;
+        /*color: v.$blanco;
+        font-size: 1.6rem;    
+        font-weight: v.$bold;
+        text-transform: uppercase;
+
+        &:hover{
+            color: v.$azul;
+        }*/
+    }
+
+    &__form{
+        display: flex;
+    }
+    &__submit{
+        @extend .header__enlace;
+    }
+
+    &__logo{
+        @include m.texto-fluido(2rem,8rem);
+        @include m.texto-degradado(v.$azul, v.$secundario);
+        text-align: center;
+        @include m.tablet{
+            display: inline-block;
+            text-align: left;
+        }
+    }
+
+    &__texto{
+        font-size: 3rem;
+        font-weight: v.$bold;
+        color: v.$blanco;
+        margin: 2rem 0;
+        text-align: center;
+        text-transform: uppercase;
+        @include m.tablet{
+            text-align: left;
+        }
+        &--modalidad{
+            font-size: 2rem;
+        }
+    }
+
+    &__boton{
+        @include m.boton(v.$secundario, v.$blanco);
+        text-transform: uppercase;
+        margin: 2rem 0;
+        @include m.tablet{
+            //El width:auto hace que el boton solo tome el tamaño que requiere y no todo el ancho de la pantalla
+            width: auto;
+        }
+    }
+}

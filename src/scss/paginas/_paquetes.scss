@@ -1,0 +1,45 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.paquetes{
+
+    &__grid{
+        @include m.contenedor;
+        @include m.grid(1, 3rem);
+        @include m.tablet{
+            @include m.grid(3, 3rem);
+            align-items: flex-start
+        }
+    }
+
+    &__submit{
+        margin-top: 5rem;
+        @include m.boton(v.$azul, v.$blanco);
+    }
+}
+
+.paquete{
+    @include m.card;
+    /*Esta sentencia cambia el orden de los card, en un dispositivo movil coloca el card o paquete de mayor
+    precio primero en la lista y en los dispositivo mas grande coloca el de mayor precio al medio.
+    Esto es asi, porque en los mobiles siempre es mejor poner el que deja mayores ingresos al comienzo del
+    scroll, y en pantallas mas grandes el usaurio suele ver primero el centro, por eso se cambia el orden*/
+    &:nth-child(2){
+        order: -1;
+        @include m.tablet{
+            order: unset;
+        }
+    }
+
+    &__lista{
+        @include m.reset-list;
+        line-height: 2;
+    }
+    &__precio{
+        font-size: 6rem;
+        margin: 3rem 0;
+        color: v.$azul;
+        font-weight: v.$black;
+        text-align: center;
+    }
+}
